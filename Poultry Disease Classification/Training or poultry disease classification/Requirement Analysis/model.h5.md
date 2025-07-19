@@ -1,6 +1,6 @@
-# GrainPalette – A Deep Learning Odyssey in Rice Type Classification
+# Transfer Learning-Based Poultry Disease Classification System
 
-GrainPalette is a deep learning-powered web application that classifies rice grain types using transfer learning. It allows users to upload an image and receive real-time predictions through a clean and modern web interface built with Flask.
+A deep learning-powered web application for poultry disease detection, leveraging transfer learning to classify images into disease categories. Farmers, veterinarians, and researchers can upload chicken images and receive instant predictions via a modern Flask-based web interface.
 
 ---
 
@@ -8,101 +8,98 @@ GrainPalette is a deep learning-powered web application that classifies rice gra
 
 <!-- Row 1 -->
 <p align="center">
-  <img src="static/Screenshot 2025-06-23 191936.png" alt="Home page" width="45%" style="margin: 10px;" />
-  <img src="static/Screenshot 2025-06-23 192016.png" alt="Detail page" width="45%" style="margin: 10px;" />
+  <img src="static/assests/image1.jpg" alt="Coccidiosis Example" width="45%" style="margin: 10px;" />
+  <img src="static/assests/image2.jpg" alt="Chicken Disease Example" width="45%" style="margin: 10px;" />
 </p>
 
 <!-- Row 2 -->
 <p align="center">
-  <img src="static/Screenshot 2025-06-23 191959.png" alt="Prediction page" width="75%" style="margin: 10px;" />
+  <img src="static/assests/image3.jpg" alt="Healthy Chicken" width="45%" style="margin: 10px;" />
+  <img src="static/assests/image4.jpg" alt="Poultry Farm" width="45%" style="margin: 10px;" />
 </p>
 
 ---
 
-##  Live Demo Video
+##  🎥 Live Demo Video
 
-Watch the demo of the GrainPalette app in action!
+Watch the demo of the Poultry Disease Classification app in action!
 
-[![GrainPalette Demo]()](https://youtu.be/1XF4mfGDjLs?feature=shared)
+[![Poultry Disease Classification Demo]()](https://youtu.be/your-demo-link)
 
 ---
 
 ## 📌 Features
 
-- 🧠 Built with **Transfer Learning** using Keras/TensorFlow
-- 🌾 Classifies rice into 5 types:
-  - Basmati
-  - Jasmine
-  - Arborio
-  - Ipsala
-  - karacadag
+- 🧠 Built with **Transfer Learning** using EfficientNetB3 (Keras/TensorFlow)
+- 🐔 Classifies chicken images into 4 categories:
+  - Salmonella
+  - New Castle Disease
+  - Coccidiosis
+  - Healthy
 - 🖼️ Upload an image and get predictions instantly
-- 📊 Shows prediction with confidence score
-- 🧠 Model code available in `model.ipynb`
-- 🎨 Modern UI with navbar, background, and animations
+- 📊 Shows classification results with confidence score
+- 📄 Model training code available in `chicken-disease.ipynb`
+- 💻 Modern UI with navbar, image gallery, and responsive design
 
 ---
 
 ## 🛠️ Project Development Process
 
-The development of **GrainPalette** followed a structured approach integrating deep learning, data preprocessing, and web application development. Below is a detailed breakdown of the process:
+### 1. Dataset Collection & Preparation
 
----
-
-### 📁 1. Dataset Collection & Preparation
-
-- The dataset was organized into **five folders**, each representing a rice type: `Basmati`, `Jasmine`, `Arborio`, `Brown`, and `White`.
-- Each folder contained multiple rice grain images captured in similar conditions.
-- The image directory structure helped in **automatic labeling** using `ImageDataGenerator` or `os.walk()`.
+- The dataset is divided into four folders: `Salmonella`, `NewCastleDisease`, `Coccidiosis`, and `Healthy`.
+- Each folder contains images of chickens in different health states, captured in similar conditions.
+- Directory structure allows for **automatic labeling** using Keras `ImageDataGenerator`.
 
 > **Structure:**
 > ```
 > dataset/
-> ├── Basmati/
-> ├── Jasmine/
-> ├── Arborio/
-> ├── Ipsala/
-> └── Karacadag/
+> ├── Salmonella/
+> ├── NewCastleDisease/
+> ├── Coccidiosis/
+> └── Healthy/
 > ```
 
 ---
 
-### 🧹 2. Data Preprocessing
+### 2. Data Preprocessing
 
-- All images were resized to a consistent size `(224x224)` for compatibility with CNN models.
-- Pixel values were normalized by dividing by 255.0.
-- Data was split into **training** and **validation** sets with an 80-20 ratio.
-- Techniques such as **augmentation** (rotation, zoom, flips) were optionally used to improve generalization.
+- Images were resized to `(224x224)` to match EfficientNetB3 input requirements.
+- Pixel values normalized to `[0, 1]`.
+- Data split into **training** and **validation** sets (80:20).
+- Data augmentation (rotation, zoom, flips) used to improve generalization and reduce overfitting.
 
 ---
 
-### 🧠 3. Model Building Using Transfer Learning
+### 3. Model Building Using Transfer Learning
 
-- A **pre-trained CNN architecture** (e.g., `MobileNetV2`, `VGG16`, or `ResNet50`) was used as a base model.
-- The top layers were **customized** to match the 5-class classification task.
-- The model was compiled using:
+- **EfficientNetB3** pre-trained on ImageNet used as the base model.
+- Custom classification head added for 4 poultry disease classes.
+- Model compiled with:
   - `Adam` optimizer
   - `categorical_crossentropy` loss
-  - `accuracy` as the evaluation metric
+  - `accuracy` metric
 
-- Training was done using Keras with `model.fit()` and included callbacks like `EarlyStopping` to avoid overfitting.
-
----
-
-### 📈 4. Model Evaluation
-
-- Accuracy and loss graphs were plotted for training and validation sets.
-- A **classification report** was generated to evaluate precision, recall, F1-score.
-- Confusion matrix and sample predictions were visualized to understand model behavior.
+- Training performed with Keras `model.fit()`, using callbacks like `EarlyStopping` for optimal results.
 
 ---
 
-### 💾 5. Model Saving
+### 4. Model Evaluation
 
-- Once trained, the model was saved as a `rice.h5` file using:
+- Training and validation accuracy/loss visualized.
+- Classification report generated: precision, recall, F1-score for each class.
+- Confusion matrix and sample predictions used to analyze model strengths and weaknesses.
+
+---
+
+### 5. Model Saving
+
+- Trained model saved as `chicken_model.keras` (Keras format).
+- Note: Large model files are not uploaded to GitHub due to size restrictions; see repo note.
 
 ```python
-model.save("rice_model.h5")
+model.save("model/chicken_model.keras")
+```
 
 ---
 
@@ -111,11 +108,75 @@ model.save("rice_model.h5")
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/GrainPalette.git
-cd GrainPalette
+git clone https://github.com/UshaButi/Transfer-learning-based-poultry-disease-classification-system.git
+cd Transfer-learning-based-poultry-disease-classification-system
+```
 
-conda create -n grainpalette python=3.9
-conda activate grainpalette
+### 2. Setup Python Environment
 
+```bash
+python -m venv tfenv
+source tfenv/bin/activate        # For Linux/Mac
+tfenv\Scripts\activate           # For Windows
+```
 
+### 3. Install Required Packages
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Application
+
+```bash
 python app.py
+```
+
+- Access the app at `http://127.0.0.1:5000/`
+- Click "GET STARTED", upload your poultry image, and view prediction results!
+
+---
+
+## 📂 Folder Structure
+
+```
+Transfer-learning-based-poultry-disease-classification-system/
+│
+├── app.py                  # Flask web application
+├── chicken-disease.ipynb   # Model training notebook
+├── README.md               # Project documentation
+│
+├── model/
+│   ├── chicken_model.keras # Trained model file
+│   └── efficientnetb3-Chicken-Disease.h5 # Original model format
+│
+├── static/
+│   ├── style.css           # Custom styles
+│   └── assests/            # UI images
+│       ├── image1.jpg
+│       ├── image2.jpg
+│       ├── image3.jpg
+│       └── image4.jpg
+│
+├── templates/
+│   └── index.html          # Main HTML template
+```
+
+---
+
+## 🏆 Credits
+
+Project developed as part of SmartInternz assignment  
+Team Members: Sundara Himaja, Turpati Nikhil Kumar
+, Usha, Penumatcha Satya Sai Shivani
+
+
+---
+
+## 📄 References
+
+- EfficientNetB3 Paper: https://arxiv.org/abs/1905.11946
+- Keras Documentation: https://keras.io/
+- Flask Documentation: https://flask.palletsprojects.com/
+- [Project Demo](https://youtu.be/your-demo-link)
+- [GitHub Repository](https://github.com/UshaButi/Transfer-learning-based-poultry-disease-classification-system)
